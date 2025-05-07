@@ -1,6 +1,10 @@
 <template>
   <div id="app">
     <div class="main-container" :style="mainBackgroundStyle">
+      <div class="slider-controls">
+        <button class="slider-arrow left" @click="prevImage">❮</button>
+        <button class="slider-arrow right" @click="nextImage">❯</button>
+      </div>
       <header class="page-header">
         <div class="logo">
           <img :src="getImage('molot2.png')" alt="Логотип SEA Law Office" />
@@ -95,16 +99,52 @@ export default {
     },
     getImage(name) {
       return new URL(`./assets/images/${name}`, import.meta.url).href
-    }
-  },
-  mounted() {
-    setInterval(() => {
+    },
+    nextImage() {
       this.currentImageIndex = (this.currentImageIndex + 1) % this.backgroundImages.length
-    }, 5000)
+    },
+    prevImage() {
+      this.currentImageIndex = (this.currentImageIndex - 1 + this.backgroundImages.length) % this.backgroundImages.length
+    }
   }
 }
 </script>
 
 <style>
 @import './assets/styles.css';
+
+.slider-controls {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 100;
+}
+
+.slider-arrow {
+  background: rgba(230, 126, 34, 0.7);
+  border: none;
+  color: white;
+  font-size: 24px;
+  padding: 15px 20px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.slider-arrow:hover {
+  background: rgba(230, 126, 34, 0.9);
+}
+
+.slider-arrow.left {
+  margin-right: auto;
+}
+
+.slider-arrow.right {
+  margin-left: auto;
+}
 </style>
