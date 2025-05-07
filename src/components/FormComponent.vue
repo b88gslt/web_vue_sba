@@ -54,7 +54,7 @@ export default {
         : ''
     },
     validateEmail() {
-      const re = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$//
       this.errors.email = !this.form.email
         ? 'Email is required'
         : !re.test(this.form.email)
